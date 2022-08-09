@@ -2,7 +2,8 @@ version: 2.1
 
 orbs:
   node: circleci/node@5.0.2
-
+  aws-cli: circleci/aws-cli@2.0.3
+  eb: circleci/aws-elastic-beanstalk@1.0.0
 jobs:
   build:
     docker:
@@ -12,6 +13,9 @@ jobs:
       - node/install:
           install-yarn: true
           node-version: "16.13"
+      - aws-cli/setup
+      - eb/setup
+      - run: eb --version
       - run:
           name: "Install Depend.."
           command: yarn install
